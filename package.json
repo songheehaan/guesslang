@@ -1,0 +1,22 @@
+{
+  "name": "guesslang",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/songheehaan/guesslang.git"
+  },
+  "author": "songhee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/songheehaan/guesslang/issues"
+  },
+  "homepage": "https://github.com/songheehaan/guesslang#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
