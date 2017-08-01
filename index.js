@@ -3,51 +3,45 @@ const express = require("express");
 const app = express();
 const axios = require("axios");
 
-const API_KEY = "asasdsadasdasdasd";
-let AUTH_TOKEN = ""; // need to be changed
+const API_KEY = "3534c04375dc49649473d58b7892e501";
 
-app.listen(3000, function() {
+app.listen(3000, function () {
   console.log("Example app listening on port 3000!");
 });
-requestToken();
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   // entering through / then call back function
   res.send("Server listening");
-  //getAccessToken(); // getting the token when the server starts
 });
-
-
-function requestToken() {
-  // getting new token every 8 mins
-  getAccessToken();
-  setInterval(function() {
-    console.log("timeout get a new token");
-    getAccessToken();
-  }, 3000);
-}
 
 //getting the text from clients text=djfsaljfdsalf
-app.get("/guess", function(req, res) {
-  const queryString = req.query.text;
-  res.send(queryString);
-});
+app.get("/guess", function (req, res) {
+  const query = req.query.text;
 
-function getAccessToken() {
-  // send api key to authentication service
-  console.log("getAccessToken function started");
-  axios
-    .post(
-      // `https://api.cognitive.microsoft.com/sts/v1.0/issueToken?Subscription-Key=${API_KEY}`
-      "https://api.cognitive.microsoft.com/sts/v1.0/issueToken?Subscription-Key=" +
-        API_KEY
-    )
-    .then(function(response) {
-      // store authtoken
-      AUTH_TOKEN = response;
-      console.log("received auth_token" + AUTH_TOKEN);
+  axios({
+    method: "post",
+    url:
+    "https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/languages",
+    headers: {
+      "Ocp-Apim-Subscription-Key": API_KEY,
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    data: {
+      "documents": [
+        {
+          "id": "test",
+          "text": query
+        }
+      ]
+    }
+  })
+    .then(function (response) {
+      //console.log(JSON.stringify(response.data));
+      res.send(response.data.documents[0].detectedLanguages[0].name)
     })
-    .catch(function(error) {
-      console.log(error);
+    .catch(function (error) {
+     // console.error(error);
+      res.send('OOPS')
     });
-}
+});
