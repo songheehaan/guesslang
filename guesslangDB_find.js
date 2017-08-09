@@ -3,6 +3,8 @@ var assert = require("assert");
 var ObjectId = require("mongodb").ObjectID;
 var url = "mongodb://localhost:27017/test";
 
+console.log("ignore me senpai");
+
 // search the text in db to check the match
 
 var findDocument = function(db, callback) {
@@ -12,11 +14,11 @@ var findDocument = function(db, callback) {
     if (doc != null) {
       var language = doc.language;
       console.dir(language);
-        // show the user the language
+      // show the user the language
     } else {
-        // send the text to API
+      // send the text to API
 
-        // save the language when it comes 
+      // save the language when it comes
       callback();
     }
   });
